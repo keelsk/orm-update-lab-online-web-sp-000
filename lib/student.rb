@@ -55,4 +55,7 @@ class Student
     student.save
     student
   end
+  
+  def update
+  end
 end
