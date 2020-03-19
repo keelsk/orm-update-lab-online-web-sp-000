@@ -55,13 +55,22 @@ class Student
   end
   
   def self.new_from_db(row)
-    student = self.new(row[0], row[1], row[2])
+    student = self.new(row[1], row[2], row[0])
     student
   end
   
   def update
   end
   
-  def self.find_by_name
+  def self.find_by_name(name)
+    sql = <<-SQL
+      SELECT*
+      FROM students
+      WHERE name = ?
+    SQL
+    
+    DB[:conn].execute(sql, name).map do |row|
+      self.new_from_db(row)
+    end
   end
 end
